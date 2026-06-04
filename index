@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<base target="_top">
+
+<style>
+
+*{
+
+box-sizing:border-box;
+
+}
+
+body{
+
+margin:0;
+
+font-family:
+Segoe UI,
+Arial;
+
+background:#f4f6fb;
+
+}
+
+/* LAYOUT */
+
+.wrapper{
+
+display:flex;
+
+height:100vh;
+
+}
+
+/* SIDEBAR */
+
+.sidebar{
+
+width:260px;
+
+background:#4338ca;
+
+color:white;
+
+padding:25px;
+
+}
+
+.logo{
+
+font-size:28px;
+
+font-weight:bold;
+
+margin-bottom:40px;
+
+}
+
+.menu{
+
+padding:15px;
+
+margin-bottom:12px;
+
+border-radius:12px;
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+.menu:hover{
+
+background:
+rgba(255,255,255,.15);
+
+}
+
+.active{
+
+background:
+rgba(255,255,255,.2);
+
+}
+
+/* CONTENT */
+
+.content{
+
+flex:1;
+
+padding:35px;
+
+overflow:auto;
+
+}
+
+.page{
+
+display:none;
+
+animation:fade .3s;
+
+}
+
+.page.active{
+
+display:block;
+
+}
+
+.card{
+
+background:white;
+
+padding:30px;
+
+border-radius:20px;
+
+box-shadow:
+
+0 5px 20px
+rgba(0,0,0,.08);
+
+}
+
+.question{
+
+background:#eef2ff;
+
+padding:18px;
+
+border-radius:15px;
+
+margin:20px 0;
+
+}
+
+.option{
+
+display:block;
+
+padding:8px;
+
+margin:5px 0;
+
+}
+
+button{
+
+padding:12px 25px;
+
+border:none;
+
+border-radius:10px;
+
+background:#4338ca;
+
+color:white;
+
+cursor:pointer;
+
+}
+
+input{
+
+width:100%;
+
+padding:12px;
+
+border-radius:10px;
+
+border:1px solid #ccc;
+
+}
+
+#timer{
+
+float:right;
+
+font-weight:bold;
+
+}
+
+table{
+
+width:100%;
+
+border-collapse:collapse;
+
+}
+
+th,td{
+
+border:1px solid #ddd;
+
+padding:10px;
+
+text-align:center;
+
+}
+
+.correct{
+
+color:green;
+
+font-weight:bold;
+
+}
+
+.wrong{
+
+color:red;
+
+font-weight:bold;
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+transform:
+translateY(10px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:none;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<div class="wrapper">
+
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+
+QUIZ APP
+
+</div>
+
+<div class="menu active"
+onclick="showPage('home',this)">
+
+🏠 Home
+
+</div>
+
+<div class="menu"
+onclick="showPage('quiz',this)">
+
+📚 Kuis
+
+</div>
+
+<div class="menu"
+onclick="showPage('about',this)">
+
+ℹ Tentang
+
+</div>
+
+<div class="menu"
+onclick="showPage('contact',this)">
+
+📞 Kontak
+
+</div>
+
+</div>
+
+
+
+<!-- CONTENT -->
+
+<div class="content">
+
+
+
+<!-- HOME -->
+
+<div
+class="page active"
+id="home">
+
+<div class="card">
+
+<h1>
+
+Selamat Datang
+
+</h1>
+
+<p>
+
+Ini adalah website quiz Pancasila.
+
+Gunakan sidebar untuk navigasi.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<!-- ABOUT -->
+
+<div
+class="page"
+id="about">
+
+<div class="card">
+
+<h1>
+
+Tentang
+
+</h1>
+
+<p>
+
+Website ini dibuat untuk quiz online sederhana.
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<!-- CONTACT -->
+
+<div
+class="page"
+id="contact">
+
+<div class="card">
+
+<h1>
+
+Kontak
+
+</h1>
+
+<p>
+
+email@example.com
+
+</p>
+
+</div>
+
+</div>
+
+
+
+<!-- QUIZ -->
+
+<div
+class="page"
+id="quiz">
+
+<div class="card">
+
+<h1>
+
+Kuis Pancasila
+
+<span id="timer">
+
+00:00
+
+</span>
+
+</h1>
+
+<input
+id="nama"
+placeholder="Nama Peserta"
+>
+
+<br><br>
+
+<button onclick="mulaiQuiz()">
+
+Mulai Quiz
+
+</button>
+
+<div id="quizArea">
+
+</div>
+
+<div id="result">
+
+</div>
+
+</div>
+
+</div>
+
+
+
+</div>
+
+</div>
+
+
+<script>
+
+function showPage(id,el){
+
+document
+.querySelectorAll(".page")
+.forEach(
+x=>x.classList.remove("active")
+)
+
+document
+.getElementById(id)
+.classList.add("active")
+
+document
+.querySelectorAll(".menu")
+.forEach(
+x=>x.classList.remove("active")
+)
+
+el.classList.add("active")
+
+}
+
+
+
+const soal=[
+
+["Pancasila terdiri dari berapa sila?",["3","4","5","6"],"C"],
+
+["Sila pertama?",["Keadilan","Ketuhanan Yang Maha Esa","Persatuan","Kerakyatan"],"B"],
+
+["Lambang sila ketiga?",["Bintang","Beringin","Banteng","Padi"],"B"],
+
+["Dasar negara?",["Malaysia","Thailand","Indonesia","Singapura"],"C"],
+
+["Hari lahir Pancasila?",["17 Agustus","1 Juni","28 Oktober","10 November"],"B"]
+
+]
+
+let detik=0
+
+let timer
+
+
+
+function mulaiQuiz(){
+
+render()
+
+clearInterval(timer)
+
+timer=
+setInterval(()=>{
+
+detik++
+
+timerText()
+
+},1000)
+
+}
+
+
+
+function timerText(){
+
+document
+.getElementById("timer")
+.innerText=
+
+String(
+Math.floor(detik/60)
+).padStart(2,"0")
+
++
+
+":"
+
++
+
+String(
+detik%60
+).padStart(2,"0")
+
+}
+
+
+
+function render(){
+
+const h=
+["A","B","C","D"]
+
+quizArea.innerHTML=""
+
+soal.forEach((s,i)=>{
+
+quizArea.innerHTML+=`
+
+<div class="question">
+
+<b>
+
+${i+1}. ${s[0]}
+
+</b>
+
+${s[1].map((o,j)=>
+
+`
+
+<label class="option">
+
+<input
+type=radio
+name=q${i}
+value=${h[j]}
+>
+
+${o}
+
+</label>
+
+`
+
+).join("")}
+
+</div>
+
+`
+
+})
+
+quizArea.innerHTML+=
+
+`
+
+<button onclick="submitQuiz()">
+
+Submit
+
+</button>
+
+`
+
+}
+
+
+
+function submitQuiz(){
+
+clearInterval(timer)
+
+let benar=0
+
+soal.forEach((s,i)=>{
+
+let p=
+document.querySelector(
+`input[name=q${i}]:checked`
+)
+
+if(
+p &&
+p.value===s[2]
+){
+
+benar++
+
+}
+
+})
+
+result.innerHTML=
+
+`
+
+<h2>
+
+Skor:
+
+${benar*20}/100
+
+</h2>
+
+`
+
+}
+
+</script>
+
+
+</body>
+
+</html>

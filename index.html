@@ -4,7 +4,18 @@
 
 <head>
 
-<base target="_top">
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+>
+
+<title>
+
+Quiz Dashboard
+
+</title>
 
 <style>
 
@@ -20,7 +31,8 @@ margin:0;
 
 font-family:
 Segoe UI,
-Arial;
+Arial,
+sans-serif;
 
 background:#f4f6fb;
 
@@ -32,7 +44,7 @@ background:#f4f6fb;
 
 display:flex;
 
-height:100vh;
+min-height:100vh;
 
 }
 
@@ -44,9 +56,12 @@ width:260px;
 
 background:#4338ca;
 
+padding:25px;
+
 color:white;
 
-padding:25px;
+box-shadow:
+0 0 20px rgba(0,0,0,.1);
 
 }
 
@@ -81,7 +96,7 @@ rgba(255,255,255,.15);
 
 }
 
-.active{
+.menu.active{
 
 background:
 rgba(255,255,255,.2);
@@ -104,7 +119,8 @@ overflow:auto;
 
 display:none;
 
-animation:fade .3s;
+animation:
+fade .25s ease;
 
 }
 
@@ -123,101 +139,23 @@ padding:30px;
 border-radius:20px;
 
 box-shadow:
-
-0 5px 20px
-rgba(0,0,0,.08);
+0 5px 20px rgba(0,0,0,.08);
 
 }
 
-.question{
+.quizFrame{
 
-background:#eef2ff;
+width:100%;
 
-padding:18px;
-
-border-radius:15px;
-
-margin:20px 0;
-
-}
-
-.option{
-
-display:block;
-
-padding:8px;
-
-margin:5px 0;
-
-}
-
-button{
-
-padding:12px 25px;
+height:800px;
 
 border:none;
 
-border-radius:10px;
+border-radius:15px;
 
-background:#4338ca;
+margin-top:20px;
 
-color:white;
-
-cursor:pointer;
-
-}
-
-input{
-
-width:100%;
-
-padding:12px;
-
-border-radius:10px;
-
-border:1px solid #ccc;
-
-}
-
-#timer{
-
-float:right;
-
-font-weight:bold;
-
-}
-
-table{
-
-width:100%;
-
-border-collapse:collapse;
-
-}
-
-th,td{
-
-border:1px solid #ddd;
-
-padding:10px;
-
-text-align:center;
-
-}
-
-.correct{
-
-color:green;
-
-font-weight:bold;
-
-}
-
-.wrong{
-
-color:red;
-
-font-weight:bold;
+background:white;
 
 }
 
@@ -237,6 +175,36 @@ to{
 opacity:1;
 
 transform:none;
+
+}
+
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+.wrapper{
+
+flex-direction:column;
+
+}
+
+.sidebar{
+
+width:100%;
+
+}
+
+.content{
+
+padding:20px;
+
+}
+
+.quizFrame{
+
+height:90vh;
 
 }
 
@@ -262,29 +230,37 @@ QUIZ APP
 
 </div>
 
-<div class="menu active"
-onclick="showPage('home',this)">
+<div
+class="menu active"
+onclick="showPage('home',this)"
+>
 
 🏠 Home
 
 </div>
 
-<div class="menu"
-onclick="showPage('quiz',this)">
+<div
+class="menu"
+onclick="showPage('quiz',this)"
+>
 
-📚 Kuis
+📚 Quiz
 
 </div>
 
-<div class="menu"
-onclick="showPage('about',this)">
+<div
+class="menu"
+onclick="showPage('about',this)"
+>
 
 ℹ Tentang
 
 </div>
 
-<div class="menu"
-onclick="showPage('contact',this)">
+<div
+class="menu"
+onclick="showPage('contact',this)"
+>
 
 📞 Kontak
 
@@ -299,12 +275,12 @@ onclick="showPage('contact',this)">
 <div class="content">
 
 
-
 <!-- HOME -->
 
-<div
+<section
 class="page active"
-id="home">
+id="home"
+>
 
 <div class="card">
 
@@ -316,23 +292,61 @@ Selamat Datang
 
 <p>
 
-Ini adalah website quiz Pancasila.
+Website quiz berbasis dashboard.
 
-Gunakan sidebar untuk navigasi.
+Gunakan sidebar di kiri untuk navigasi.
 
 </p>
 
 </div>
 
+</section>
+
+
+
+<!-- QUIZ -->
+
+<section
+class="page"
+id="quiz"
+>
+
+<div class="card">
+
+<h1>
+
+Kuis Pancasila
+
+</h1>
+
+<p>
+
+Silakan kerjakan quiz berikut.
+
+</p>
+
+<iframe
+
+class="quizFrame"
+
+src="https://script.google.com/macros/s/AKfycbxYh9IgdbfjWI19Ia9xpc6JBLU1mrepG6jS42ZNvlNLMAK0BikBcMgdn1VbtU5A_V8EnA/exec"
+
+>
+
+</iframe>
+
 </div>
+
+</section>
 
 
 
 <!-- ABOUT -->
 
-<div
+<section
 class="page"
-id="about">
+id="about"
+>
 
 <div class="card">
 
@@ -344,21 +358,22 @@ Tentang
 
 <p>
 
-Website ini dibuat untuk quiz online sederhana.
+Website dashboard sederhana yang menampilkan quiz online.
 
 </p>
 
 </div>
 
-</div>
+</section>
 
 
 
 <!-- CONTACT -->
 
-<div
+<section
 class="page"
-id="contact">
+id="contact"
+>
 
 <div class="card">
 
@@ -376,60 +391,14 @@ email@example.com
 
 </div>
 
-</div>
-
-
-
-<!-- QUIZ -->
-
-<div
-class="page"
-id="quiz">
-
-<div class="card">
-
-<h1>
-
-Kuis Pancasila
-
-<span id="timer">
-
-00:00
-
-</span>
-
-</h1>
-
-<input
-id="nama"
-placeholder="Nama Peserta"
->
-
-<br><br>
-
-<button onclick="mulaiQuiz()">
-
-Mulai Quiz
-
-</button>
-
-<div id="quizArea">
-
-</div>
-
-<div id="result">
-
-</div>
-
-</div>
-
-</div>
+</section>
 
 
 
 </div>
 
 </div>
+
 
 
 <script>
@@ -453,172 +422,6 @@ x=>x.classList.remove("active")
 )
 
 el.classList.add("active")
-
-}
-
-
-
-const soal=[
-
-["Pancasila terdiri dari berapa sila?",["3","4","5","6"],"C"],
-
-["Sila pertama?",["Keadilan","Ketuhanan Yang Maha Esa","Persatuan","Kerakyatan"],"B"],
-
-["Lambang sila ketiga?",["Bintang","Beringin","Banteng","Padi"],"B"],
-
-["Dasar negara?",["Malaysia","Thailand","Indonesia","Singapura"],"C"],
-
-["Hari lahir Pancasila?",["17 Agustus","1 Juni","28 Oktober","10 November"],"B"]
-
-]
-
-let detik=0
-
-let timer
-
-
-
-function mulaiQuiz(){
-
-render()
-
-clearInterval(timer)
-
-timer=
-setInterval(()=>{
-
-detik++
-
-timerText()
-
-},1000)
-
-}
-
-
-
-function timerText(){
-
-document
-.getElementById("timer")
-.innerText=
-
-String(
-Math.floor(detik/60)
-).padStart(2,"0")
-
-+
-
-":"
-
-+
-
-String(
-detik%60
-).padStart(2,"0")
-
-}
-
-
-
-function render(){
-
-const h=
-["A","B","C","D"]
-
-quizArea.innerHTML=""
-
-soal.forEach((s,i)=>{
-
-quizArea.innerHTML+=`
-
-<div class="question">
-
-<b>
-
-${i+1}. ${s[0]}
-
-</b>
-
-${s[1].map((o,j)=>
-
-`
-
-<label class="option">
-
-<input
-type=radio
-name=q${i}
-value=${h[j]}
->
-
-${o}
-
-</label>
-
-`
-
-).join("")}
-
-</div>
-
-`
-
-})
-
-quizArea.innerHTML+=
-
-`
-
-<button onclick="submitQuiz()">
-
-Submit
-
-</button>
-
-`
-
-}
-
-
-
-function submitQuiz(){
-
-clearInterval(timer)
-
-let benar=0
-
-soal.forEach((s,i)=>{
-
-let p=
-document.querySelector(
-`input[name=q${i}]:checked`
-)
-
-if(
-p &&
-p.value===s[2]
-){
-
-benar++
-
-}
-
-})
-
-result.innerHTML=
-
-`
-
-<h2>
-
-Skor:
-
-${benar*20}/100
-
-</h2>
-
-`
 
 }
 
